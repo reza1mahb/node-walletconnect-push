@@ -1,5 +1,7 @@
 # WalletConnect Push Server
 
+Push Server for triggering WalletConnect notifications
+
 ## Environment Variables
 
 The following environment variables should be set for the container:
@@ -11,33 +13,51 @@ The following environment variables should be set for the container:
 * `FCM_API_URL` - Firebase Cloud Messaging API URL, default `https://fcm.googleapis.com/fcm/send`
 * `FCM_API_KEY` - Firebase Cloud Messaging API server key
 
-## Develop
+## Development
 
 ```bash
 yarn dev
 ```
 
-## Test
+## Production
 
-```bash
-yarn test
-```
+### Using NPM
 
-## Build
+1. Build
 
 ```bash
 yarn build
 ```
 
-## Build Docker
-
-```bash
-yarn
-make build-docker
-```
-
-## Run
+2. Production
 
 ```bash
 yarn start
 ```
+
+3. Server accessible from host:
+
+```bash
+http://localhost:5000/
+```
+
+### Using Docker
+
+1. Build the container with:
+
+```bash
+make build-docker
+```
+
+2. Run the container with:
+
+```bash
+docker run -p 5000:5000 -e REDIS_URL=redis://192.168.1.53:6379/0 walletconnect/node-walletconnect-push
+```
+
+3. Server accessible from host:
+
+```bash
+http://localhost:5000/
+```
+
