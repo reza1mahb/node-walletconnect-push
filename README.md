@@ -29,6 +29,13 @@ yarn test
 yarn build
 ```
 
+## Build Docker
+
+```bash
+yarn
+make build-docker
+```
+
 ## Run
 
 ```bash
