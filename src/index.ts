@@ -16,7 +16,12 @@ const fcmApi = axios.create({
   }
 })
 
-const app = fastify({ logger: config.debug })
+const app = fastify({
+  logger: {
+    level: process.env.LOG_LEVEL || 'info',
+    file: process.env.LOG_FILE || undefined,
+  }
+})
 
 app.register(helmet)
 
