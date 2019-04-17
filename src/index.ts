@@ -31,6 +31,12 @@ app.get('/health', (_, res) => {
 })
 
 app.post('/new', async (req, res) => {
+  if (!req.body || typeof req.body !== 'object') {
+    return res.status(400).send({
+      message: 'Error: missing or invalid request body'
+    })
+  }
+
   const { bridge, topic, type, token, peerName, language } = req.body
 
   if (!topic || typeof topic !== 'string') {
@@ -89,6 +95,12 @@ app.post('/new', async (req, res) => {
 })
 
 app.post('/push', async (req, res) => {
+  if (!req.body || typeof req.body !== 'object') {
+    return res.status(400).send({
+      message: 'Error: missing or invalid request body'
+    })
+  }  
+  
   const { topic } = req.body
 
   if (!topic || typeof topic !== 'string') {
