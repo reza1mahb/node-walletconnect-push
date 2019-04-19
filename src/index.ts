@@ -69,6 +69,21 @@ app.post('/new', async (req, res) => {
     })
   }
 
+  if (!bridge || typeof bridge !== 'string') {
+    return res.status(400).send({
+      message: 'Error: missing or invalid bridge field'
+    })
+  }
+
+  if (config.bridge_whitelist) {
+    const whitelist = config.bridge_whitelist.split(",")
+    if (!whitelist.includes(bridge)) {
+      return res.status(400).send({
+        message: 'Error: invalid bridge value'
+      })
+    }
+  }
+
   const clientDetails: ClientDetails = { type, token, peerName, language }
 
   try {
@@ -100,7 +115,6 @@ app.post('/push', async (req, res) => {
       message: 'Error: missing or invalid request body'
     })
   }  
-  
   const { topic } = req.body
 
   if (!topic || typeof topic !== 'string') {
